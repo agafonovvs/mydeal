@@ -45,6 +45,17 @@ $tasks = [
     ]
 ];
 
+// функция для подсчета количества задач в проекте
+function tasksCount ($tasks, $project) {
+    $tasksCount = 0;
+    foreach ($tasks as $key => $value) {
+        if ($value['taskCategory'] == $project) {
+            $tasksCount++;
+        }
+    }
+    return $tasksCount;
+};
+
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -92,7 +103,7 @@ $tasks = [
                                 echo '
                                     <li class="main-navigation__list-item">
                                     <a class="main-navigation__list-item-link" href="#">'.$value.'</a>
-                                    <span class="main-navigation__list-item-count">0</span>
+                                    <span class="main-navigation__list-item-count">'.tasksCount($tasks, $value);'</span>
                                 ';
                             }
                         ?>
