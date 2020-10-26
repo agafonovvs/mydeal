@@ -5,7 +5,11 @@
         <ul class="main-navigation__list">
             <?php 
                 // выводим список всех проектов
-                foreach ($data as $key => $value) {
+                // echo '<pre>';
+                // die(var_dump($data));
+                // echo '<pre>';
+                
+                foreach ($projects as $key => $value) {
                     echo '
                         <li class="main-navigation__list-item">
                         <a class="main-navigation__list-item-link" href="#">'.$value.'</a>
@@ -54,7 +58,7 @@
     <table class="tasks">
         <?php 
             // вывод списка задач из массива
-            foreach ($data as $key => $value) {
+            foreach ($tasks as $key => $value) {
                 $taskComplete = '';
                 if ($value['taskComplete'] == true && $show_complete_tasks == 0) {
                     continue;

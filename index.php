@@ -1,4 +1,7 @@
 <?php
+
+include_once('./helpers.php'); //подключаю файл с функцией
+
 // показывать или нет выполненные задачи
 $show_complete_tasks = rand(0, 1);
 
@@ -56,7 +59,21 @@ function tasksCount ($tasks, $project) {
     return $tasksCount;
 }
 
-include_once('./helpers.php');
-$contentTemplate = include_template('main.php', [$projects, $tasks]);
-print include_template('layout.php', [$contentTemplate, [$pageName => 'Дела в порядке']]);
+$templates = [
+    'tasks' => $tasks,
+    'projects' => $projects,
+    'show_complete_tasks' => $show_complete_tasks
+];
+
+$pageContent = include_template('main.php', $templates);
+
+$dataPages = [
+    'pageContent' => $pageContent,
+    'pageName' => 'Дела в порядке'
+];
+
+print (include_template('layout.php', $dataPages));
+
+
+
 ?>
