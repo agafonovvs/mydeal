@@ -127,18 +127,18 @@ function get_noun_plural_form (int $number, string $one, string $two, string $ma
  * @return string Итоговый HTML
  */
 function include_template($name, array $data = []) {
-    $name = 'templates/' . $name;
-    $result = '';
+    $name = 'templates/' . $name; //переменная, для создания пути к шаблону
+    $result = ''; //переменная для вывода результата
 
-    if (!is_readable($name)) {
+    if (!is_readable($name)) { //условие, что если шаблон существует, то вернуть результат
         return $result;
     }
 
-    ob_start();
-    extract($data);
-    require $name;
+    ob_start(); //включение буфера
+    extract($data); //извлечение данных из ассоциативного массива с данными для шаблона
+    require $name; //подключение файла с шаблоном
 
-    $result = ob_get_clean();
+    $result = ob_get_clean(); //запись в переменную самого шаблона и данных к нему
 
-    return $result;
+    return $result; //возврат результата функции
 }
