@@ -3,12 +3,7 @@
 
     <nav class="main-navigation">
         <ul class="main-navigation__list">
-            <?php 
-                // выводим список всех проектов
-                // echo '<pre>';
-                // die(var_dump($data));
-                // echo '<pre>';
-                
+            <?php                 
                 foreach ($projects as $key => $value) {
                     echo '
                         <li class="main-navigation__list-item">
@@ -65,8 +60,18 @@
                 } elseif ($value['taskComplete'] == true) {
                     $taskComplete = 'task--completed';
                 }
+
+                // подсчет разницы дат
+                $currentDate = time(); // создатие текущей временной метки
+                $taskDate = strtotime($value['taskDate']); // создание временной метки задачи
+                $differenceDate = $taskDate - $currentDate; // разница временных меток
+                $taskImportant = ''; // переменная для класса тега tr
+                if ($differenceDate / 60 / 60 <= 24  && $differenceDate / 60 / 60 >= 0) {
+                    $taskImportant = 'task--important';
+                }
+                // die(var_dump($taskDate));
                 echo '
-                    <tr class="tasks__item task '.$taskComplete.'">   
+                    <tr class="tasks__item task '.$taskComplete.' '.$taskImportant.'">   
                         <td class="task__select">
                             <label class="checkbox task__checkbox">
                                 <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1">
