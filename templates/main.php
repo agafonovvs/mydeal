@@ -4,12 +4,22 @@
     <nav class="main-navigation">
         <ul class="main-navigation__list">
             <?php                 
-                foreach ($projects as $key => $value) {
-                    echo '
+                // foreach ($projects as $key => $value) {
+                //     echo '
+                //         <li class="main-navigation__list-item">
+                //         <a class="main-navigation__list-item-link" href="#">'.$value.'</a>
+                //         <span class="main-navigation__list-item-count">'.tasksCount($tasks, $value);'</span>
+                //     ';
+                // }
+                
+                foreach ($userProjects as $key => $value) {
+                    foreach ($value as $key2 => $value2) {
+                        echo '
                         <li class="main-navigation__list-item">
-                        <a class="main-navigation__list-item-link" href="#">'.$value.'</a>
-                        <span class="main-navigation__list-item-count">'.tasksCount($tasks, $value);'</span>
+                        <a class="main-navigation__list-item-link" href="#">'.$value2.'</a>
+                        <span class="main-navigation__list-item-count">'.tasksCount($tasks, $value2);'</span>
                     ';
+                    }
                 }
             ?>
             </li>
@@ -52,43 +62,65 @@
 
     <table class="tasks">
         <?php 
-            // вывод списка задач из массива
-            foreach ($tasks as $key => $value) {
-                $taskComplete = '';
-                if ($value['taskComplete'] == true && $show_complete_tasks == 0) {
-                    continue;
-                } elseif ($value['taskComplete'] == true) {
-                    $taskComplete = 'task--completed';
-                }
+            foreach ($userTasks as $key => $value) {
+                    echo '
+                        <tr class="tasks__item task '.$taskComplete.' '.$taskImportant.'">   
+                            <td class="task__select">
+                                <label class="checkbox task__checkbox">
+                                    <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1">
+                                    <span class="checkbox__text">'.$value['taskName'].'</span>
+                                </label>
+                            </td>
 
-                // подсчет разницы дат
-                $currentDate = time(); // создатие текущей временной метки
-                $taskDate = strtotime($value['taskDate']); // создание временной метки задачи
-                $differenceDate = $taskDate - $currentDate; // разница временных меток
-                $taskImportant = ''; // переменная для класса тега tr
-                if ($differenceDate / 60 / 60 <= 24  && $differenceDate / 60 / 60 >= 0) {
-                    $taskImportant = 'task--important';
-                }
-                // die(var_dump($taskDate));
-                echo '
-                    <tr class="tasks__item task '.$taskComplete.' '.$taskImportant.'">   
-                        <td class="task__select">
-                            <label class="checkbox task__checkbox">
-                                <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1">
-                                <span class="checkbox__text">'.$value['taskName'].'</span>
-                            </label>
-                        </td>
+                            <td class="task__file">
+                                <a class="download-link" href="#"></a>
+                            </td>
 
-                        <td class="task__file">
-                            <a class="download-link" href="#"></a>
-                        </td>
+                            <td class="task__date">'.$value['deadline'].'</td>
 
-                        <td class="task__date">'.$value['taskDate'].'</td>
-
-                        <td class="task__controls"></td>
-                    </tr>
-                ';
+                            <td class="task__controls"></td>
+                        </tr>
+                    ';
+                
             }
+
+            // вывод списка задач из массива
+            // foreach ($tasks as $key => $value) {
+            //     $taskComplete = '';
+            //     if ($value['taskComplete'] == true && $show_complete_tasks == 0) {
+            //         continue;
+            //     } elseif ($value['taskComplete'] == true) {
+            //         $taskComplete = 'task--completed';
+            //     }
+
+            //     // подсчет разницы дат
+            //     $currentDate = time(); // создатие текущей временной метки
+            //     $taskDate = strtotime($value['taskDate']); // создание временной метки задачи
+            //     $differenceDate = $taskDate - $currentDate; // разница временных меток
+            //     $taskImportant = ''; // переменная для класса тега tr
+            //     if ($differenceDate / 60 / 60 <= 24  && $differenceDate / 60 / 60 >= 0) {
+            //         $taskImportant = 'task--important';
+            //     }
+            //     // die(var_dump($taskDate));
+            //     echo '
+            //         <tr class="tasks__item task '.$taskComplete.' '.$taskImportant.'">   
+            //             <td class="task__select">
+            //                 <label class="checkbox task__checkbox">
+            //                     <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1">
+            //                     <span class="checkbox__text">'.$value['taskName'].'</span>
+            //                 </label>
+            //             </td>
+
+            //             <td class="task__file">
+            //                 <a class="download-link" href="#"></a>
+            //             </td>
+
+            //             <td class="task__date">'.$value['taskDate'].'</td>
+
+            //             <td class="task__controls"></td>
+            //         </tr>
+            //     ';
+            // }
         ?>
     </table>
 </main>
